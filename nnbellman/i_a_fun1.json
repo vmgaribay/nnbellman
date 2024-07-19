@@ -1,0 +1,59 @@
+{
+    "name": "BellmanEmulate3L_512",
+    "n_gpu": 1,
+
+    "arch": {
+        "type": "ThreeLayer",
+        "args": {
+            "input_dim":4, 
+            "output_dim":3,
+            "maxnodes":512}
+    },
+    "data_loader": {
+        "type": "BellmanDataLoader",
+        "args":{
+            "data_dir": "data/",
+            "input_csv_file":"/Users/victoria/Documents/Scripts/Python/NNFunction/Trial3/DatasetSmall/AgentData.csv", 
+            "output_csv_file":"/Users/victoria/Documents/Scripts/Python/NNFunction/Trial3/DatasetSmall/ResultsFinal.csv",
+            "output_variable":"i_a",
+            "output_format":"category",
+            "categories":{"N":0.0,"L":0.25,"H":0.45},
+            "batch_size": 512,
+            "shuffle": true,
+            "validation_split": 0.2,
+            "num_workers": 2
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "category_accuracy","no_adapt_falsepositive","no_adapt_falsenegative","low_adapt_falsepositive","low_adapt_falsenegative","high_adapt_falsepositive","high_adapt_falsenegative"
+        ],
+    "possible_i_a":[0.0,0.25,0.45],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 50,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 200,
+
+        "save_dir": "saved/i_a",
+        "save_period": 1,
+        "verbosity": 2,
+        
+        "monitor": "min val_loss",
+        "early_stop": 15,
+
+        "tensorboard": true
+    }
+}
