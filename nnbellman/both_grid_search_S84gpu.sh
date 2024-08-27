@@ -26,7 +26,7 @@ maxnodes=("512" "1024" "2048")
 
 total_runs=$(( ${#architecture[@]} * ${#learningrate[@]} * ${#batchsize[@]} * ${#maxnodes[@]} ))
 counter=0
-restart=1
+restart=102
 earlystop=135
 
 
