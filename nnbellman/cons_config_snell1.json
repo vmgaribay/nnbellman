@@ -15,8 +15,8 @@
         "type": "BellmanDataLoader",
         "args":{
             "data_dir": "data/",
-            "input_csv_file":"DatasetSmall/AgentData.csv", 
-            "output_csv_file":"DatasetSmall/ResultsFinal.csv",
+            "input_csv_file":"DatasetJuly/AgentData-Updated19July2024.csv", 
+            "output_csv_file":"DatasetJuly/ResultsNone-Updated19July2024.csv",
             "categories":{"N":0.0,"L":0.25,"H":0.45},
             "output_variable":"consumption",
             "cons_scale":false,

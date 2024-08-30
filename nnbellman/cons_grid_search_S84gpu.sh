@@ -12,10 +12,6 @@ module load 2022
 source NNFun/bin/activate
 #pip install -r requirements.txt
 
-#cp $HOME/NNFunction/Trial3/DatasetSmall/ResultsFinal.csv "$TMPDIR"
-#cp $HOME/NNFunction/Trial3/DatasetSmall/AgentData.csv "$TMPDIR"
-#mkdir $TMPDIR/saved/i_a
-
 
 # Experimental setup for seed 84
 
@@ -55,7 +51,6 @@ done
 
 wait
 
-#cp -r "$TMPDIR"/saved $HOME/NNFunction/Trial3/saved
 
 echo " $date - Runs $restart through $earlystop are complete for seed 84."
 
