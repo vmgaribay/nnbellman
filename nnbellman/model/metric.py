@@ -78,26 +78,26 @@ def model_max_ae(output, target):
 def model_mse(output, target):
     return torch.mean((output - target)**2)
 
-def consumption_mae(output, target, scale):
-    return torch.mean(torch.abs(output[:,1]-target[:,1]))*scale
+def consumption_mae(output, target, cons_scale):
+    return torch.mean(torch.abs(output[:,1]-target[:,1]))*cons_scale
 
-def consumption_max_ae(output, target, scale):
-    return torch.max(torch.abs(output[:,1]-target[:,1]))*scale
+def consumption_max_ae(output, target, cons_scale):
+    return torch.max(torch.abs(output[:,1]-target[:,1]))*cons_scale
 
-def i_a_mae(output, target):
-    return torch.mean(torch.abs(output[:,0]-target[:,0]))
+def i_a_mae(output, target, i_a_scale):
+    return torch.mean(torch.abs(output[:,0]-target[:,0]))*i_a_scale
 
-def i_a_max_ae(output, target):
-    return torch.max(torch.abs(output[:,0]-target[:,0]))
+def i_a_max_ae(output, target,i_a_scale):
+    return torch.max(torch.abs(output[:,0]-target[:,0]))*i_a_scale
 
-def n_wrong_i_a(output, target, possible_targets):
-    return torch.sum(torch.abs(possible_targets[torch.argmin(torch.abs(output[:,0].unsqueeze(-1) - possible_targets), dim=-1)]-target[:,0]) > 0).item()
+def n_wrong_i_a(output, target, possible_targets, i_a_scale):
+    return torch.sum(torch.abs(possible_targets[torch.argmin(torch.abs(output[:,0].unsqueeze(-1)*i_a_scale - possible_targets), dim=-1)]-possible_targets[torch.argmin(torch.abs(target[:,0].unsqueeze(-1)*i_a_scale - possible_targets), dim=-1)]) > 0).item()
 
-def n_exceeding_i_a_k(data, output, possible_targets, scale):
+def n_exceeding_i_a_k(data, output, possible_targets, cons_scale, i_a_scale):
     if data.size(1)==4:    
-        return torch.sum(data[:,1]-possible_targets[torch.argmin(torch.abs(output[:,0].unsqueeze(-1) - possible_targets), dim=-1)]-scale*output[:,1]< 0).item()
+        return torch.sum(data[:,1]-possible_targets[torch.argmin(torch.abs(output[:,0].unsqueeze(-1)*i_a_scale - possible_targets), dim=-1)]-cons_scale*output[:,1]< 0).item()
     elif data.size(1)==5:  
-        return torch.sum(data[:,1]-data[:,4]-scale*output[:,0]< 0).item()
+        return torch.sum(data[:,1]-data[:,4]-cons_scale*output[:,0]< 0).item()
   
-def n_exceeding_k(data, output, scale):    
-    return torch.sum(data[:,1]-scale*output[:,0]< 0).item()
+def n_exceeding_k(data, output, cons_scale):    
+    return torch.sum(data[:,1]-cons_scale*output[:,0]< 0).item()

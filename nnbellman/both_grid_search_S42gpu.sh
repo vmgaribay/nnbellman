@@ -4,7 +4,7 @@
 #SBATCH --gpus=1
 
 #              d-hh:mm:ss
-#SBATCH --time=06:30:00
+#SBATCH --time=12:30:00
 
 
 module load 2022

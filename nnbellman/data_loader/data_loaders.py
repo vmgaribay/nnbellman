@@ -83,7 +83,7 @@ class InformedBellmanDataset(Dataset):
 
 class BellmanDataset(Dataset):
     '''Values for "both" output are normalized against the range.'''
-    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, scale):
+    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1,i_a_scale=1):
         self.input_data = pd.read_csv(input_csv_file)
         self.output_data = pd.read_csv(output_csv_file)
         self.output_variable = output_variable 
@@ -102,14 +102,14 @@ class BellmanDataset(Dataset):
         
         if output_variable == "both":
             mapping = categories
-            self.output_data["Equation"] = self.output_data["Equation"].map(mapping)
-            self.output_data["Consumption"] = self.output_data["Consumption"]/scale
+            self.output_data["Equation"] = self.output_data["Equation"].map(mapping)/i_a_scale
+            self.output_data["Consumption"] = self.output_data["Consumption"]/cons_scale
             self.output_data = self.output_data[['Equation','Consumption']].values
 
         elif output_variable == "i_a":
             if output_format=="decimal":
                 mapping=categories
-                self.output_data["Equation"] = self.output_data["Equation"].map(mapping)
+                self.output_data["Equation"] = self.output_data["Equation"].map(mapping)/i_a_scale
                 self.output_data = self.output_data[['Equation']].values
             elif output_format=="category":
                 categories = list(categories.keys())
@@ -123,7 +123,7 @@ class BellmanDataset(Dataset):
                 print('Variable output_format must be either "decimal" or "category".')
 
         elif output_variable == "consumption":
-            self.output_data = self.output_data[['Consumption']].values
+            self.output_data = self.output_data[['Consumption']]/cons_scale.values
 
         else:
             print(f'Output variable {output_variable} not supported. Try "i_a", "consumption", or "both"')
@@ -145,10 +145,10 @@ class BellmanDataLoader(BaseDataLoader):
     """
     Custom class for loading the input/output from the Bellman equation
     """
-    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, cons_scale=False, scale=1, shuffle=True, validation_split=0.0, num_workers=1):
+    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, cons_scale=1, i_a_scale=1, shuffle=True, validation_split=0.0, num_workers=1):
         
         self.data_dir = data_dir
-        self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, scale)
+        self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, cons_scale, i_a_scale)
 
         super().__init__(self.dataset, batch_size, shuffle, validation_split, num_workers)
 
@@ -157,7 +157,7 @@ class InformedBellmanDataLoader(BaseDataLoader):
     """
     Custom class for loading the input/output from the Bellman equation and the predicted i_a from a given model.
     """
-    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable, output_format, info_model_path, info_model_format, categories=None, cons_scale=False, scale=1, shuffle=True, validation_split=0.0, num_workers=1):
+    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable, output_format, info_model_path, info_model_format, categories=None, shuffle=True, validation_split=0.0, num_workers=1):
         
         self.data_dir = data_dir
         self.dataset = InformedBellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, info_model_path, info_model_format, categories)

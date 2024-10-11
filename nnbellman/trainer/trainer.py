@@ -58,23 +58,29 @@ class Trainer(BaseTrainer):
                     possible_targets = torch.unique(target[:,0]).to(self.device)
                 else:
                     possible_targets = torch.tensor(possible_targets).to(self.device)
-            if self.config.__getitem__('data_loader')['args']['cons_scale']==True:
-                scale = self.config.__getitem__('data_loader')['args']['scale']
-            else:
-                scale = 1
+                if self.config.__getitem__('data_loader')['args']['cons_scale']!=False:
+                    cons_scale = self.config.__getitem__('data_loader')['args']['cons_scale']
+                else:
+                    cons_scale = 1
+                if self.config.__getitem__('data_loader')['args']['i_a_scale']!=False:
+                    i_a_scale = self.config.__getitem__('data_loader')['args']['i_a_scale']
+                else:
+                    i_a_scale = 1
 
             for met in self.metric_ftns:
 
                 if met.__name__ == 'n_wrong_i_a':
-                    self.train_metrics.update(met.__name__, met(output, target, possible_targets), aggregation="total")
+                    self.train_metrics.update(met.__name__, met(output, target, possible_targets, i_a_scale), aggregation="total")
                 elif met.__name__ == 'n_exceeding_i_a_k':
-                    self.train_metrics.update(met.__name__, met(data, output, possible_targets, scale), aggregation="total")
+                    self.train_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale,i_a_scale), aggregation="total")
                 elif met.__name__ == 'n_exceeding_k':
-                    self.train_metrics.update(met.__name__, met(data, output, scale), aggregation="total")
+                    self.train_metrics.update(met.__name__, met(data, output, cons_scale), aggregation="total")
                 elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                     self.train_metrics.update(met.__name__, met(output, target), aggregation="total")
                 elif "consumption" in met.__name__:
-                    self.train_metrics.update(met.__name__, met(output, target, scale))
+                    self.train_metrics.update(met.__name__, met(output, target, cons_scale))
+                elif "i_a" in met.__name__:
+                    self.train_metrics.update(met.__name__, met(output, target, i_a_scale))
                 else:
                     self.train_metrics.update(met.__name__, met(output, target))
 
@@ -122,22 +128,28 @@ class Trainer(BaseTrainer):
                         possible_targets = torch.unique(target[:,0]).to(self.device)
                     else:
                         possible_targets = torch.tensor(possible_targets).to(self.device)
-                if self.config.__getitem__('data_loader')['args']['cons_scale']==True:
-                    scale = self.config.__getitem__('data_loader')['args']['scale']
+                if self.config.__getitem__('data_loader')['args']['cons_scale']!=False:
+                    cons_scale = self.config.__getitem__('data_loader')['args']['cons_scale']
                 else:
-                    scale = 1
+                    cons_scale = 1
+                if self.config.__getitem__('data_loader')['args']['i_a_scale']!=False:
+                    i_a_scale = self.config.__getitem__('data_loader')['args']['i_a_scale']
+                else:
+                    i_a_scale = 1
 
                 for met in self.metric_ftns:
                     if met.__name__ == 'n_wrong_i_a':
-                        self.valid_metrics.update(met.__name__, met(output, target, possible_targets), aggregation="total")
+                        self.valid_metrics.update(met.__name__, met(output, target, possible_targets, i_a_scale), aggregation="total")
                     elif met.__name__ == 'n_exceeding_i_a_k':
-                        self.valid_metrics.update(met.__name__, met(data, output, possible_targets, scale), aggregation="total")
+                        self.valid_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale, i_a_scale), aggregation="total")
                     elif met.__name__ == 'n_exceeding_k':
-                        self.valid_metrics.update(met.__name__, met(data, output, scale), aggregation="total")
+                        self.valid_metrics.update(met.__name__, met(data, output, cons_scale), aggregation="total")
                     elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                         self.valid_metrics.update(met.__name__, met(output, target),aggregation="total")
                     elif "consumption" in met.__name__:
-                        self.valid_metrics.update(met.__name__, met(output, target, scale))
+                        self.valid_metrics.update(met.__name__, met(output, target, cons_scale))
+                    elif "i_a" in met.__name__:
+                        self.valid_metrics.update(met.__name__, met(output, target, i_a_scale))
                     else: 
                         self.valid_metrics.update(met.__name__, met(output, target))
                 self.writer.add_image('input', make_grid(data.cpu(), nrow=8, normalize=True))
