@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
         write_json(config.__getdict__(), f"{config.get_path()}/config.json")
 
-    if config["data_loader"]["args"]["scale_output"] in ["both", "i_a","equation"] and (not "i_a_scale" in config["data_loader"]["args"] or config["data_loader"]["args"]["i_a_scale"] is None):
+    if config["data_loader"]["args"]["scale_output"] in ["both", "i_a","equation", "true"] and (not "i_a_scale" in config["data_loader"]["args"] or config["data_loader"]["args"]["i_a_scale"] is None):
 
         i_a_scale = np.max(config["possible_i_a"])-np.min(config["possible_i_a"])
         modification = {'data_loader;args;i_a_scale': i_a_scale}

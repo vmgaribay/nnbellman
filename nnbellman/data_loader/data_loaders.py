@@ -123,7 +123,7 @@ class BellmanDataset(Dataset):
                 print('Variable output_format must be either "decimal" or "category".')
 
         elif output_variable == "consumption":
-            self.output_data = self.output_data[['Consumption']]/cons_scale.values
+            self.output_data = (self.output_data[['Consumption']]/cons_scale).values
 
         else:
             print(f'Output variable {output_variable} not supported. Try "i_a", "consumption", or "both"')
@@ -145,7 +145,7 @@ class BellmanDataLoader(BaseDataLoader):
     """
     Custom class for loading the input/output from the Bellman equation
     """
-    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, cons_scale=1, i_a_scale=1, shuffle=True, validation_split=0.0, num_workers=1):
+    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, scale_output=False, cons_scale=1, i_a_scale=1, shuffle=True, validation_split=0.0, num_workers=1):
         
         self.data_dir = data_dir
         self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, cons_scale, i_a_scale)
