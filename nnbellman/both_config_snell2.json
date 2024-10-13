@@ -15,8 +15,8 @@
         "type": "BellmanDataLoader",
         "args":{
             "data_dir": "data/",
-            "input_csv_file":"DatasetOct/AgentData-Updated11Oct2024.csv", 
-            "output_csv_file":"DatasetOct/ResultsFinal-Updated11Oct2024.csv",
+            "input_csv_file":"DatasetOct/AgentData-Updated12Oct2024.csv", 
+            "output_csv_file":"DatasetOct/ResultsFinal-Updated11Oct2024clean.csv",
             "categories":{"N":0.0,"L":0.25,"H":0.45},
             "output_variable":"both",
             "scale_output": "both",
