@@ -84,8 +84,8 @@ class InformedBellmanDataset(Dataset):
 class BellmanDataset(Dataset):
     '''Values for "both" output are normalized against the range.'''
     def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1,i_a_scale=1):
-        self.input_data = pd.read_csv(input_csv_file)
-        self.output_data = pd.read_csv(output_csv_file)
+        self.input_data = pd.read_csv(input_csv_file, index_col=0)
+        self.output_data = pd.read_csv(output_csv_file, index_col=0)
         self.output_variable = output_variable 
         #Demand Categories if needed 
         if categories==None and (output_variable=="i_a" or output_variable=='both'):
@@ -93,12 +93,12 @@ class BellmanDataset(Dataset):
             sys.exit()
         #Subset data inputs
         self.input_data = self.input_data[['Alpha','k','Sigma','Theta']].values
-        #Eliminate and Track Duplicate Rows
+        #Eliminate Duplicate Rows and Entries with Missing Output
         u , unique_indices = np.unique(self.input_data, axis=0, return_index=True)
-
+        unique_indices = unique_indices[np.isin(unique_indices,self.output_data.index.values)]
         self.input_data = self.input_data[np.sort(unique_indices)]
         self.output_data = self.output_data.loc[np.sort(unique_indices)]
-
+        
         
         if output_variable == "both":
             mapping = categories
