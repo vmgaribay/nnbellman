@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
         output_data = pd.read_csv(config["data_loader"]["args"]["output_csv_file"])
 
-        cons_scale = np.max(output_data["Consumption"])-np.min(output_data["Consumption"])
+        cons_scale = np.max(output_data["Consumption"])
         modification = {'data_loader;args;cons_scale': cons_scale}
         config = _update_config(config, modification)
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     if config["data_loader"]["args"]["scale_output"] in ["both", "i_a","equation", "true"] and (not "i_a_scale" in config["data_loader"]["args"] or config["data_loader"]["args"]["i_a_scale"] is None):
 
-        i_a_scale = np.max(config["possible_i_a"])-np.min(config["possible_i_a"])
+        i_a_scale = np.max(config["possible_i_a"])
         modification = {'data_loader;args;i_a_scale': i_a_scale}
         config = _update_config(config, modification)
 
