@@ -20,7 +20,7 @@
             "output_csv_file":"DatasetOct/ResultsFinal-Updated12Oct2024clean.csv",
             "categories":{"N":0.0,"L":0.25,"H":0.45},
             "output_variable":"both",
-            "scale_output": "both",
+            "scale_output": "consumption",
             "batch_size": 512,
             "shuffle": true,
             "validation_split": 0.2,
@@ -50,7 +50,7 @@
     "trainer": {
         "epochs": 200,
 
-        "save_dir": "saved/both/all_in_both_scaled/S84",
+        "save_dir": "saved/both/all_in_cons_scaled/S84",
         "save_period": 50,
         "verbosity": 1,
         
