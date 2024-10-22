@@ -83,7 +83,7 @@ if __name__ == '__main__':
     ]
     
     config = ConfigParser.from_args(args, options)
-    if config["data_loader"]["args"]["scale_output"] in ["both", "cons", "consumption"] and (not "cons_scale" in config["data_loader"]["args"] or config["data_loader"]["args"]["cons_scale"] is None):
+    if config["data_loader"]["args"]["scale_output"] in ["both", "cons", "consumption"] and ("cons_scale" not in config["data_loader"]["args"] or config["data_loader"]["args"]["cons_scale"] is None):
 
         output_data = pd.read_csv(config["data_loader"]["args"]["output_csv_file"])
 
@@ -93,12 +93,11 @@ if __name__ == '__main__':
 
         write_json(config.__getdict__(), f"{config.get_path()}/config.json")
 
-    if config["data_loader"]["args"]["scale_output"] in ["both", "i_a","equation", "true"] and (not "i_a_scale" in config["data_loader"]["args"] or config["data_loader"]["args"]["i_a_scale"] is None):
+    if config["data_loader"]["args"]["scale_output"] in ["both", "i_a","equation", "true"] and ("i_a_scale" not in config["data_loader"]["args"] or config["data_loader"]["args"]["i_a_scale"] is None):
 
         i_a_scale = np.max(config["possible_i_a"])
         modification = {'data_loader;args;i_a_scale': i_a_scale}
         config = _update_config(config, modification)
-
         write_json(config.__getdict__(), f"{config.get_path()}/config.json")
 
 

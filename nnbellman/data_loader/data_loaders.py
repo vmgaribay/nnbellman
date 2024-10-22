@@ -24,7 +24,7 @@ class MnistDataLoader(BaseDataLoader):
 
 class InformedBellmanDataset(Dataset):
     '''Takes input from a model of a single variable as an input to a model of another variable.'''
-    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format, info_model_path, info_model_format="category", categories=None):
+    def __init__(self, input_csv_file, output_csv_file, output_variable, info_model_path, info_model_format="category", categories=None):
         self.input_data = pd.read_csv(input_csv_file)
         self.output_data = pd.read_csv(output_csv_file)
         self.info_data = pd.DataFrame()
@@ -83,7 +83,7 @@ class InformedBellmanDataset(Dataset):
 
 class BellmanDataset(Dataset):
     '''Values for "both" output are normalized against the range.'''
-    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1,i_a_scale=1):
+    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1, i_a_scale=1, input_scale=None):
         self.input_data = pd.read_csv(input_csv_file, index_col=0)
         self.output_data = pd.read_csv(output_csv_file, index_col=0)
         self.output_variable = output_variable 
@@ -92,13 +92,30 @@ class BellmanDataset(Dataset):
             print("Category dictionary must be defined for output variable i_a. Training terminated.")
             sys.exit()
         #Subset data inputs
-        self.input_data = self.input_data[['Alpha','k','Sigma','Theta']].values
-        #Eliminate Duplicate Rows and Entries with Missing Output
-        u , unique_indices = np.unique(self.input_data, axis=0, return_index=True)
-        unique_indices = unique_indices[np.isin(unique_indices,self.output_data.index.values)]
-        self.input_data = self.input_data[np.sort(unique_indices)]
-        self.output_data = self.output_data.loc[np.sort(unique_indices)]
+        self.input_data = self.input_data[['Alpha','k','Sigma','Theta']]
+
         
+        #Scale and set input data
+
+        if {"alpha","Alpha"} & input_scale.keys():
+            self.scale_input("Alpha", input_scale.get(list({"alpha","Alpha"} & input_scale.keys())[0]))
+        if {"k","K"} & input_scale.keys():
+            self.scale_input("k", input_scale.get(list({"k","K"} & input_scale.keys())[0]))
+        if {"sigma","Sigma"} & input_scale.keys():
+            self.scale_input("Sigma", input_scale.get(list({"sigma","Sigma"} & input_scale.keys())[0]))
+        if {"theta","Theta"} & input_scale.keys():
+            self.scale_input("Theta", input_scale.get(list({"theta","Theta"} & input_scale.keys())[0]))
+
+        #Identify Duplicate Rows
+        u , unique_indices = np.unique(self.input_data, axis=0, return_index=True)
+        # Eliminate Duplicates and Entries with Missing Output
+        unique_indices = unique_indices[np.isin(unique_indices,self.output_data.index.values)]
+        self.input_data = self.input_data.iloc[np.sort(unique_indices)]
+        self.input_data = self.input_data.values
+        self.output_data = self.output_data.loc[np.sort(unique_indices)]
+        print(f"Total pool of data contains {len(unique_indices)} unique points. Any duplicates have been removed.")
+
+        #Scale and set output data
         
         if output_variable == "both":
             mapping = categories
@@ -127,7 +144,21 @@ class BellmanDataset(Dataset):
 
         else:
             print(f'Output variable {output_variable} not supported. Try "i_a", "consumption", or "both"')
-
+    def scale_input(self, input, scale_dict):
+        '''
+        Scales input data according to the input_scale dictionary provided
+        '''
+        if  scale_dict['dist'] in ["unif", "uniform"]:
+            a,b=scale_dict['params']
+            print("Scaling requested for", input," Distribution:",scale_dict['dist']," Parameters:", scale_dict['params'])
+            self.input_data[input] = (self.input_data[input] - a)/b
+        elif  scale_dict['dist'] in ["norm", "normal"]:
+            mu, std = scale_dict['params']
+            print("Scaling requested for", input," Distribution",scale_dict['dist']," Parameters:", scale_dict['params'])
+            self.input_data[input] = (self.input_data[input] - mu)/std
+        else:
+            print(f"Scaling for {input} was requested, but dictionary did not contain details on a distribution for min-max scaling or z-score standardization. The dictionary format should be {{'variable':{{'dist':'','params':[]}}}}")
+            sys.exit()
 
     def __len__(self):
         return len(self.input_data)
@@ -145,10 +176,10 @@ class BellmanDataLoader(BaseDataLoader):
     """
     Custom class for loading the input/output from the Bellman equation
     """
-    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, scale_output=False, cons_scale=1, i_a_scale=1, shuffle=True, validation_split=0.0, num_workers=1):
+    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, scale_output=None, cons_scale=1, i_a_scale=1, input_scale=None, shuffle=True, validation_split=0.0, num_workers=1):
         
         self.data_dir = data_dir
-        self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, cons_scale, i_a_scale)
+        self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, cons_scale, i_a_scale, input_scale)
 
         super().__init__(self.dataset, batch_size, shuffle, validation_split, num_workers)
 

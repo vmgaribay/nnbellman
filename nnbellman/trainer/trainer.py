@@ -58,23 +58,27 @@ class Trainer(BaseTrainer):
                     possible_targets = torch.unique(target[:,0]).to(self.device)
                 else:
                     possible_targets = torch.tensor(possible_targets).to(self.device)
-                if self.config.__getitem__('data_loader')['args']['cons_scale']!=False:
+                if 'cons_scale' in self.config.__getitem__('data_loader')['args']:
                     cons_scale = self.config.__getitem__('data_loader')['args']['cons_scale']
                 else:
                     cons_scale = 1
-                if self.config.__getitem__('data_loader')['args']['i_a_scale']!=False:
+                if 'i_a_scale' in self.config.__getitem__('data_loader')['args']:
                     i_a_scale = self.config.__getitem__('data_loader')['args']['i_a_scale']
                 else:
                     i_a_scale = 1
+                if 'input_scale' in self.config.__getitem__('data_loader')['args']:
+                    input_scale = self.config["data_loader"]["args"].get("input_scale")
+                else:
+                    input_scale = {}
 
             for met in self.metric_ftns:
 
                 if met.__name__ == 'n_wrong_i_a':
                     self.train_metrics.update(met.__name__, met(output, target, possible_targets, i_a_scale), aggregation="total")
                 elif met.__name__ == 'n_exceeding_i_a_k':
-                    self.train_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale,i_a_scale), aggregation="total")
+                    self.train_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale,i_a_scale,input_scale), aggregation="total")
                 elif met.__name__ == 'n_exceeding_k':
-                    self.train_metrics.update(met.__name__, met(data, output, cons_scale), aggregation="total")
+                    self.train_metrics.update(met.__name__, met(data, output, cons_scale,input_scale), aggregation="total")
                 elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                     self.train_metrics.update(met.__name__, met(output, target), aggregation="total")
                 elif "consumption" in met.__name__:
@@ -128,22 +132,26 @@ class Trainer(BaseTrainer):
                         possible_targets = torch.unique(target[:,0]).to(self.device)
                     else:
                         possible_targets = torch.tensor(possible_targets).to(self.device)
-                if self.config.__getitem__('data_loader')['args']['cons_scale']!=False:
+                if 'cons_scale' in self.config.__getitem__('data_loader')['args']:
                     cons_scale = self.config.__getitem__('data_loader')['args']['cons_scale']
                 else:
                     cons_scale = 1
-                if self.config.__getitem__('data_loader')['args']['i_a_scale']!=False:
+                if 'i_a_scale' in self.config.__getitem__('data_loader')['args']:
                     i_a_scale = self.config.__getitem__('data_loader')['args']['i_a_scale']
                 else:
                     i_a_scale = 1
+                if 'input_scale' in self.config.__getitem__('data_loader')['args']:
+                    input_scale = self.config["data_loader"]["args"].get("input_scale")
+                else:
+                    input_scale = {}
 
                 for met in self.metric_ftns:
                     if met.__name__ == 'n_wrong_i_a':
                         self.valid_metrics.update(met.__name__, met(output, target, possible_targets, i_a_scale), aggregation="total")
                     elif met.__name__ == 'n_exceeding_i_a_k':
-                        self.valid_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale, i_a_scale), aggregation="total")
+                        self.valid_metrics.update(met.__name__, met(data, output, possible_targets, cons_scale, i_a_scale,input_scale), aggregation="total")
                     elif met.__name__ == 'n_exceeding_k':
-                        self.valid_metrics.update(met.__name__, met(data, output, cons_scale), aggregation="total")
+                        self.valid_metrics.update(met.__name__, met(data, output, cons_scale, input_scale), aggregation="total")
                     elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                         self.valid_metrics.update(met.__name__, met(output, target),aggregation="total")
                     elif "consumption" in met.__name__:
