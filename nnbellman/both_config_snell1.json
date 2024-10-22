@@ -37,7 +37,7 @@
     },
     "loss": "mse_loss",
     "metrics": [
-        "model_mae", "model_max_ae","consumption_mae","consumption_max_ae","i_a_mae","i_a_max_ae","n_wrong_i_a","n_exceeding_i_a_k" 
+        "model_mae", "model_max_ae","consumption_mae","consumption_max_ae","i_a_mae","i_a_max_ae","n_wrong_i_a"
     ],
     "possible_i_a":[0.0,0.25,0.45],
     "lr_scheduler": {
@@ -50,7 +50,7 @@
     "trainer": {
         "epochs": 200,
 
-        "save_dir": "saved/both/S21",
+        "save_dir": "saved/both/all_in_cons_scaled/S21",
         "save_period": 50,
         "verbosity": 1,
         
