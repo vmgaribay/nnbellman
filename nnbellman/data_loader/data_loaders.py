@@ -23,7 +23,7 @@ class MnistDataLoader(BaseDataLoader):
 
 
 class InformedBellmanDataset(Dataset):
-    '''Takes input from a model of a single variable as an input to a model of another variable.'''
+    '''Takes output from a model of a single variable as an input to a model of another variable.'''
     def __init__(self, input_csv_file, output_csv_file, output_variable, info_model_path, info_model_format="category", categories=None):
         self.input_data = pd.read_csv(input_csv_file)
         self.output_data = pd.read_csv(output_csv_file)

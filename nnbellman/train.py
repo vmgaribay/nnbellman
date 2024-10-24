@@ -25,6 +25,12 @@ def main(config):
     # setup data_loader instances
     data_loader = config.init_obj('data_loader', module_data)
     valid_data_loader = data_loader.split_validation()
+    modification = {'data_loader;args;n_training': data_loader.sampler.__len__()}
+    config = _update_config(config, modification)
+    modification = {'data_loader;args;n_validation': data_loader.valid_sampler.__len__()}
+    config = _update_config(config, modification)
+    write_json(config.__getdict__(), f"{config.get_path()}/config.json")
+
 
     # build model architecture, then print to console
     model = config.init_obj('arch', module_arch)
