@@ -83,7 +83,7 @@ class InformedBellmanDataset(Dataset):
 
 class BellmanDataset(Dataset):
     '''Values for "both" output are normalized against the range.'''
-    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1, i_a_scale=1, input_scale=None):
+    def __init__(self, input_csv_file, output_csv_file, output_variable, output_format ,categories, cons_scale=1, i_a_scale=1, input_scale={}):
         self.input_data = pd.read_csv(input_csv_file, index_col=0)
         self.output_data = pd.read_csv(output_csv_file, index_col=0)
         self.output_variable = output_variable 
@@ -176,7 +176,7 @@ class BellmanDataLoader(BaseDataLoader):
     """
     Custom class for loading the input/output from the Bellman equation
     """
-    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, scale_output=None, cons_scale=1, i_a_scale=1, input_scale=None, shuffle=True, validation_split=0.0, num_workers=1):
+    def __init__(self, data_dir, batch_size, input_csv_file, output_csv_file, output_variable="both", output_format = None, categories = None, scale_output=None, cons_scale=1, i_a_scale=1, input_scale={}, shuffle=True, validation_split=0.0, num_workers=1):
         
         self.data_dir = data_dir
         self.dataset = BellmanDataset(input_csv_file, output_csv_file, output_variable, output_format, categories, cons_scale, i_a_scale, input_scale)
