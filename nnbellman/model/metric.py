@@ -100,11 +100,20 @@ def model_max_pe(output, target):
 
 def consumption_mae(output, target, cons_scale):
     '''Mean absolute error of consumption predictions'''
-    return torch.mean(torch.abs(output[:,1]-target[:,1]))*cons_scale
+    if output.size(1)==2:
+        return torch.mean(torch.abs(output[:,1]-target[:,1]))*cons_scale
+    elif output.size(1)==1:
+        return torch.mean(torch.abs(output[:,0]-target[:,0]))*cons_scale
+    else:
+        print("ERROR: Output not as expected for consumption metric")
 
 def consumption_max_ae(output, target, cons_scale):
     '''Maximum absolute error of consumption predictions'''
-    return torch.max(torch.abs(output[:,1]-target[:,1]))*cons_scale
+    if output.size(1)==2:
+        return torch.max(torch.abs(output[:,1]-target[:,1]))*cons_scale
+    elif output.size(1)==1:
+        return torch.max(torch.abs(output[:,0]-target[:,0]))*cons_scale
+    print("ERROR: Output not as expected for consumption metric")
 
 def consumption_mpe(output, target, cons_scale):    
     '''Mean percentage error of consumption predictions'''
@@ -113,7 +122,7 @@ def consumption_mpe(output, target, cons_scale):
     elif output.size(1)==1:
         return torch.mean(torch.abs((output[:,0]-target[:,0])/target[:,0]))*cons_scale*100
     else:
-        print("ERROR: Output size not as expected")
+        print("ERROR: Output not as expected for consumption metric")
 
 def consumption_max_pe(output, target, cons_scale):    
     '''Maximum percentage error of consumption predictions'''
@@ -134,7 +143,7 @@ def i_a_mpe(output, target, i_a_scale):
     '''Mean percentage error of adaptation predictions'''
     return torch.mean(torch.abs((output[:,0]-target[:,0])/target[:,0]))*i_a_scale*100
 
-def i_a_maxpe(output, target, i_a_scale):
+def i_a_max_pe(output, target, i_a_scale):
     '''Maximum percentage error of adaptation predictions'''
     return torch.max(torch.abs((output[:,0]-target[:,0])/target[:,0]))*i_a_scale*100
 

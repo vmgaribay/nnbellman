@@ -52,7 +52,7 @@ class Trainer(BaseTrainer):
             self.writer.set_step((epoch - 1) * self.len_epoch + batch_idx)
             self.train_metrics.update('loss', loss.item())
 
-            if any(met.__name__ in ['n_wrong_i_a', 'n_exceeding_i_a_k'] for met in self.metric_ftns):
+            if any(scalable in met.__name__ for scalable in ['consumption','i_a'] for met in self.metric_ftns):
                 possible_targets = self.config.__getitem__('possible_i_a')
                 if possible_targets==None:
                     possible_targets = torch.unique(target[:,0]).to(self.device)
@@ -82,9 +82,17 @@ class Trainer(BaseTrainer):
                 elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                     self.train_metrics.update(met.__name__, met(output, target), aggregation="total")
                 elif "consumption" in met.__name__:
-                    self.train_metrics.update(met.__name__, met(output, target, cons_scale))
+                    if "max" in met.__name__: 
+                        self.train_metrics.update(met.__name__, met(output, target, cons_scale), aggregation="maximum")
+                    else:
+                        self.train_metrics.update(met.__name__, met(output, target, cons_scale))
                 elif "i_a" in met.__name__:
-                    self.train_metrics.update(met.__name__, met(output, target, i_a_scale))
+                    if "max" in met.__name__: 
+                        self.train_metrics.update(met.__name__, met(output, target, i_a_scale), aggregation="maximum")
+                    else:
+                        self.train_metrics.update(met.__name__, met(output, target, i_a_scale))
+                elif "max" in met.__name__:
+                    self.train_metrics.update(met.__name__, met(output, target),aggregation="maximum")
                 else:
                     self.train_metrics.update(met.__name__, met(output, target))
 
@@ -126,7 +134,7 @@ class Trainer(BaseTrainer):
                 self.writer.set_step((epoch - 1) * len(self.valid_data_loader) + batch_idx, 'valid')
                 self.valid_metrics.update('loss', loss.item())
 
-                if any(met.__name__ in ['n_wrong_i_a', 'n_exceeding_i_a_k'] for met in self.metric_ftns):
+                if any(scalable in met.__name__ for scalable in ['consumption','i_a'] for met in self.metric_ftns):
                     possible_targets = self.config.__getitem__('possible_i_a')
                     if possible_targets==None:
                         possible_targets = torch.unique(target[:,0]).to(self.device)
@@ -155,9 +163,17 @@ class Trainer(BaseTrainer):
                     elif "falsepositive" in met.__name__ or "falsenegative" in met.__name__:
                         self.valid_metrics.update(met.__name__, met(output, target),aggregation="total")
                     elif "consumption" in met.__name__:
-                        self.valid_metrics.update(met.__name__, met(output, target, cons_scale))
+                        if "max" in met.__name__: 
+                            self.valid_metrics.update(met.__name__, met(output, target, cons_scale), aggregation="maximum")
+                        else:
+                            self.valid_metrics.update(met.__name__, met(output, target, cons_scale))
                     elif "i_a" in met.__name__:
-                        self.valid_metrics.update(met.__name__, met(output, target, i_a_scale))
+                        if "max" in met.__name__: 
+                            self.valid_metrics.update(met.__name__, met(output, target, i_a_scale), aggregation="maximum")
+                        else:
+                            self.valid_metrics.update(met.__name__, met(output, target, i_a_scale))
+                    elif "max" in met.__name__: 
+                        self.valid_metrics.update(met.__name__, met(output, target), aggregation="maximum")
                     else: 
                         self.valid_metrics.update(met.__name__, met(output, target))
                 self.writer.add_image('input', make_grid(data.cpu(), nrow=8, normalize=True))

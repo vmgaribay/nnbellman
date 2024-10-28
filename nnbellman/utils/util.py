@@ -77,6 +77,8 @@ class MetricTracker:
             self._data.result.at[key] = self._data.average.at[key]
         elif aggregation == "total":
             self._data.result.at[key] = self._data.total.at[key]
+        elif aggregation == "maximum":
+            self._data.result.at[key] = max(self._data.result.at[key], value)
         else:
             print(f'Error: Invalid method {aggregation} specified as {key} aggregation method; valid options are "average" and "total".')
 
