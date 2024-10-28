@@ -1,5 +1,5 @@
 {
-    "name": "BellmanEmulate3L_512",
+    "name": "TestModel",
     "n_gpu": 1,
     "seed": 42,
 
@@ -15,11 +15,11 @@
         "type": "BellmanDataLoader",
         "args":{
             "data_dir": "data/",
-            "input_csv_file":"DatasetJuly/AgentData-Updated19July2024.csv", 
-            "output_csv_file":"DatasetJuly/ResultsNone-Updated19July2024.csv",
+            "input_csv_file":"DatasetOct/AgentData-Updated12Oct2024.csv", 
+            "output_csv_file":"DatasetOct/ResultsFinal-Updated12Oct2024clean.csv",
             "categories":{"N":0.0,"L":0.25,"H":0.45},
             "output_variable":"consumption",
-            "cons_scale":false,
+            "scale_output": true,
             "batch_size": 512,
             "shuffle": true,
             "validation_split": 0.2,
@@ -36,7 +36,7 @@
     },
     "loss": "mse_loss",
     "metrics": [
-        "model_mae", "model_max_ae","n_exceeding_k"
+        "model_mse", "model_mae", "model_max_ae", "consumption_mae", "consumption_max_ae", "consumption_mpe", "consumption_max_pe"
         ],
     "possible_i_a":[0.0,0.25,0.45],
     "lr_scheduler": {
@@ -54,7 +54,7 @@
         "verbosity": 1,
         
         "monitor": "min val_loss",
-        "early_stop": 15,
+        "early_stop": 20,
 
         "tensorboard": true
     }

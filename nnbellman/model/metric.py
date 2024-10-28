@@ -90,6 +90,14 @@ def model_mse(output, target):
     '''Mean squared error of model predictions'''
     return torch.mean((output - target)**2)
 
+def model_mpe(output, target):
+    '''Mean percentage error of model predictions'''
+    return torch.mean(torch.abs((output - target) / target)) * 100
+
+def model_max_pe(output, target):    
+    '''Maximum percentage error of model predictions'''
+    return torch.max(torch.abs((output - target) / target)) * 100
+
 def consumption_mae(output, target, cons_scale):
     '''Mean absolute error of consumption predictions'''
     return torch.mean(torch.abs(output[:,1]-target[:,1]))*cons_scale
@@ -98,6 +106,22 @@ def consumption_max_ae(output, target, cons_scale):
     '''Maximum absolute error of consumption predictions'''
     return torch.max(torch.abs(output[:,1]-target[:,1]))*cons_scale
 
+def consumption_mpe(output, target, cons_scale):    
+    '''Mean percentage error of consumption predictions'''
+    if output.size(1)==2:
+        return torch.mean(torch.abs((output[:,1]-target[:,1])/target[:,1]))*cons_scale*100
+    elif output.size(1)==1:
+        return torch.mean(torch.abs((output[:,0]-target[:,0])/target[:,0]))*cons_scale*100
+    else:
+        print("ERROR: Output size not as expected")
+
+def consumption_max_pe(output, target, cons_scale):    
+    '''Maximum percentage error of consumption predictions'''
+    if output.size(1)==2:
+        return torch.max(torch.abs((output[:,1]-target[:,1])/target[:,1]))*cons_scale*100
+    elif output.size(1)==1:
+        return torch.max(torch.abs((output[:,0]-target[:,0])/target[:,0]))*cons_scale*100
+
 def i_a_mae(output, target, i_a_scale):
     '''Mean absolute error of adaptation predictions'''
     return torch.mean(torch.abs(output[:,0]-target[:,0]))*i_a_scale
@@ -105,6 +129,14 @@ def i_a_mae(output, target, i_a_scale):
 def i_a_max_ae(output, target,i_a_scale):
     '''Maximum absolute error of adaptation predictions'''
     return torch.max(torch.abs(output[:,0]-target[:,0]))*i_a_scale
+
+def i_a_mpe(output, target, i_a_scale):
+    '''Mean percentage error of adaptation predictions'''
+    return torch.mean(torch.abs((output[:,0]-target[:,0])/target[:,0]))*i_a_scale*100
+
+def i_a_maxpe(output, target, i_a_scale):
+    '''Maximum percentage error of adaptation predictions'''
+    return torch.max(torch.abs((output[:,0]-target[:,0])/target[:,0]))*i_a_scale*100
 
 def n_wrong_i_a(output, target, possible_targets, i_a_scale):
     '''Count of incorrect adaptation predictions'''

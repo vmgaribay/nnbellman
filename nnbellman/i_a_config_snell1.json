@@ -1,5 +1,5 @@
 {
-    "name": "BellmanEmulate3L_512",
+    "name": "TestModel",
     "n_gpu": 1,
     "seed": 21,
 
@@ -14,10 +14,10 @@
         "type": "BellmanDataLoader",
         "args":{
             "data_dir": "data/",
-            "input_csv_file":"DatasetSmall/AgentData.csv", 
-            "output_csv_file":"DatasetSmall/ResultsFinal.csv",
+            "input_csv_file":"DatasetOct/AgentData-Updated12Oct2024.csv", 
+            "output_csv_file":"DatasetOct/ResultsFinal-Updated12Oct2024clean.csv",
             "output_variable":"i_a",
-            "cons_scale": false,
+            "scale_output": false,
             "output_format":"category",
             "categories":{"N":0.0,"L":0.25,"H":0.45},
             "batch_size": 512,
@@ -36,7 +36,7 @@
     },
     "loss": "cross_entropy_loss",
     "metrics": [
-        "category_accuracy","no_adapt_falsepositive","no_adapt_falsenegative","low_adapt_falsepositive","low_adapt_falsenegative","high_adapt_falsepositive","high_adapt_falsenegative"
+        "model_mse","category_accuracy","no_adapt_falsepositive","no_adapt_falsenegative","low_adapt_falsepositive","low_adapt_falsenegative","high_adapt_falsepositive","high_adapt_falsenegative"
         ],
     "lr_scheduler": {
         "type": "StepLR",
@@ -53,7 +53,7 @@
         "verbosity": 1,
         
         "monitor": "min val_loss",
-        "early_stop": 15,
+        "early_stop": 20,
 
         "tensorboard": true
     }
