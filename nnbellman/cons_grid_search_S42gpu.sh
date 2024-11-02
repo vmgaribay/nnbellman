@@ -4,7 +4,7 @@
 #SBATCH --gpus=1
 
 #              d-hh:mm:ss
-#SBATCH --time=05:30:00
+#SBATCH --time=12:30:00
 
 
 module load 2022
@@ -36,10 +36,12 @@ do
             do
                 ((counter++))
                 if [ "$counter" -ge "$restart" ] && [ "$counter" -le "$earlystop" ]; then
-                    name="cons_${a}_${mn}"
+                    name="cons_${a}_${mn}" 
+                    date=$(date)
                     echo "$date Started run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                     variation="-c cons_config_snell2.json --a $a --lr $lr --bs $bs --s 42 --mn $mn --n $name"
-                    python train.py $variation 
+                    python train.py $variation  
+                    date=$(date)
                     echo "$date Finished run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                 fi
             done

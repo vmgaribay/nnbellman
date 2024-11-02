@@ -15,9 +15,9 @@
         "type": "BellmanDataLoader",
         "args":{
             "data_dir": "data/",
-            "input_csv_file":"DatasetOct/AgentData-Updated12Oct2024.csv", 
-            "output_csv_file":"DatasetOct/ResultsFinal-Updated12Oct2024clean.csv",
-            "categories":{"N":0.0,"L":0.25,"H":0.45},
+            "input_csv_file":"DatasetOct/AgentData-Updated30Oct2024.csv", 
+            "output_csv_file":"DatasetOct/ResultsFinal-Updated30Oct2024clean.csv",
+            "categories":{"N":0.0,"L":0.2,"H":0.5},
             "output_variable":"both",
             "scale_output": false,
             "batch_size": 512,
@@ -38,7 +38,7 @@
     "metrics": [
         "model_mse", "model_mae", "model_max_ae","consumption_mae","consumption_max_ae","consumption_mpe","consumption_max_pe","i_a_mae","i_a_max_ae","i_a_mpe","i_a_max_pe","n_wrong_i_a"
     ],
-    "possible_i_a":[0.0,0.25,0.45],
+    "possible_i_a":[0.0,0.2,0.5],
     "lr_scheduler": {
         "type": "StepLR",
         "args": {

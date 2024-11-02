@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=asNNS21
+#SBATCH --job-name=csNNS21
 #SBATCH -p gpu
 #SBATCH --gpus=1
 

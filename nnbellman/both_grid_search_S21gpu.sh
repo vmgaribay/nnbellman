@@ -41,10 +41,12 @@ do
             do
                 ((counter++))
                 if [ "$counter" -ge "$restart" ] && [ "$counter" -le "$earlystop" ]; then
-                    name="both_${a}_${mn}"
+                    name="both_${a}_${mn}" 
+                    date=$(date)
                     echo "$date Started run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                     variation="-c both_config_snell1.json --a $a --lr $lr --bs $bs --s 21 --mn $mn --n $name"
-                    python train.py $variation 
+                    python train.py $variation  
+                    date=$(date)
                     echo "$date Finished run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                 fi
             done
