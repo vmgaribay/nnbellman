@@ -24,7 +24,7 @@ counter=0
 restart=1
 earlystop=135
 
-
+echo "Script: na_cons_grid_search_S84gpu.sh"
 # Loop through every combination
 for a in "${architecture[@]}"
 do

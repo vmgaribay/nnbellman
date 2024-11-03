@@ -24,7 +24,7 @@ counter=0
 restart=0
 earlystop=135
 
-
+echo "Script: cons_grid_search_S21gpu.sh"
 # Loop through every combination
 for a in "${architecture[@]}"
 do

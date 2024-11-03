@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nacNNS42
+#SBATCH --job-name=naasS42NN
 #SBATCH -p gpu
 #SBATCH --gpus=1
 
@@ -24,7 +24,7 @@ counter=0
 restart=1
 earlystop=135
 
-echo "Script: na_cons_grid_search_S42gpu.sh"
+echo "Script: na_as_cons_grid_search_S42gpu.sh"
 # Loop through every combination
 for a in "${architecture[@]}"
 do
@@ -38,7 +38,7 @@ do
                 if [ "$counter" -ge "$restart" ] && [ "$counter" -le "$earlystop" ]; then
                     name="cons_${a}_${mn}"
                     echo "$date Started run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
-                    variation="-c cons_config_snell2_no_adapt.json --a $a --lr $lr --bs $bs --s 42 --mn $mn --n $name"
+                    variation="-c cons_config_snell2_no_adapt_all_scaled.json --a $a --lr $lr --bs $bs --s 42 --mn $mn --n $name"
                     python train.py $variation 
                     echo "$date Finished run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                 fi

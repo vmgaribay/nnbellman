@@ -1,7 +1,7 @@
 {
     "name": "TestModel",
     "n_gpu": 1,
-    "seed": 42,
+    "seed": 84,
 
 
     "arch": {
@@ -16,6 +16,7 @@
         "args":{
             "data_dir": "data/",
             "input_csv_file":"DatasetOct/AgentData-Updated30Oct2024.csv", 
+            "input_scale":{"alpha":{"dist":"norm","params":[1.08,0.074]},"k":{"dist":"unif","params":[0,40]},"sigma":{"dist":"unif","params":[0,2]},"theta":{"dist":"unif","params":[0,1]}},
             "output_csv_file":"DatasetOct/ResultsNone-Updated30Oct2024clean.csv",
             "categories":{"N":0.0},
             "output_variable":"consumption",
@@ -49,7 +50,7 @@
     "trainer": {
         "epochs": 200,
 
-        "save_dir": "saved/consumption_no_adapt/S42",
+        "save_dir": "saved/consumption_no_adapt/S84",
         "save_period": 50,
         "verbosity": 1,
         
