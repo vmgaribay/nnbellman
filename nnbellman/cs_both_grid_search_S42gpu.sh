@@ -16,7 +16,7 @@ source NNFun/bin/activate
 #cp $HOME/NNFunction/Trial3/DatasetSmall/AgentData.csv "$TMPDIR"
 #mkdir $TMPDIR/saved/i_a
 
-
+echo "Script: cs_both_grid_search_S42gpu.sh"
 # Experimental setup for seed 42
 
 architecture=("ThreeLayer" "FourLayer" "FiveLayer" "PudgeFiveLayer" "PudgeSixLayer")

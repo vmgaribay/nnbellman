@@ -21,7 +21,7 @@ maxnodes=("512" "1024" "2048")
 
 total_runs=$(( ${#architecture[@]} * ${#learningrate[@]} * ${#batchsize[@]} * ${#maxnodes[@]} ))
 counter=0
-restart=1
+restart=0
 earlystop=135
 
 echo "Script: na_cons_grid_search_S42gpu.sh"

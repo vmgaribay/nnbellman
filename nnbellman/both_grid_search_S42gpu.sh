@@ -6,7 +6,6 @@
 #              d-hh:mm:ss
 #SBATCH --time=12:30:00
 
-
 module load 2022
 #python -m venv NNFun 
 source NNFun/bin/activate
@@ -17,6 +16,7 @@ source NNFun/bin/activate
 #mkdir $TMPDIR/saved/
 
 
+echo "Script: both_grid_search_S42gpu.sh"
 # Experimental setup for seed 42
 
 architecture=("ThreeLayer" "FourLayer" "FiveLayer" "PudgeFiveLayer" "PudgeSixLayer")
