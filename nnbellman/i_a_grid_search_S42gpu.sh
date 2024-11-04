@@ -28,7 +28,7 @@ counter=0
 restart=0
 earlystop=135
 
-echo "Script: i__grid_search_S42gpu.sh"
+echo "Script: i_a_grid_search_S42gpu.sh"
 # Loop through every combination
 for a in "${architecture[@]}"
 do
