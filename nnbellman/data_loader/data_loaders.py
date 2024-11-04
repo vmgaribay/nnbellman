@@ -110,7 +110,7 @@ class BellmanDataset(Dataset):
         u , unique_indices = np.unique(self.input_data, axis=0, return_index=True)
         # Eliminate Duplicates and Entries with Missing Output
         unique_indices = unique_indices[np.isin(unique_indices,self.output_data.index.values)]
-        self.input_data = self.input_data.iloc[np.sort(unique_indices)]
+        self.input_data = self.input_data.loc[np.sort(unique_indices)]
         self.input_data = self.input_data.values
         self.output_data = self.output_data.loc[np.sort(unique_indices)]
         print(f"Total pool of data contains {len(unique_indices)} unique points. Any duplicates have been removed.")

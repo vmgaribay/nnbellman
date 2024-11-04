@@ -50,7 +50,7 @@
     "trainer": {
         "epochs": 200,
 
-        "save_dir": "saved/consumption_no_adapt/S21",
+        "save_dir": "saved/consumption_no_adapt_as/S21",
         "save_period": 50,
         "verbosity": 1,
         
