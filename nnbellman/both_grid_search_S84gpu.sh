@@ -4,7 +4,7 @@
 #SBATCH --gpus=1
 
 #              d-hh:mm:ss
-#SBATCH --time=12:30:00
+#SBATCH --time=20:30:00
 
 
 module load 2022
@@ -26,7 +26,7 @@ maxnodes=("512" "1024" "2048")
 
 total_runs=$(( ${#architecture[@]} * ${#learningrate[@]} * ${#batchsize[@]} * ${#maxnodes[@]} ))
 counter=0
-restart=0
+restart=59
 earlystop=135
 
 

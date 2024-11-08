@@ -4,7 +4,7 @@
 #SBATCH --gpus=1
 
 #              d-hh:mm:ss
-#SBATCH --time=12:30:00
+#SBATCH --time=20:30:00
 
 
 module load 2022
@@ -21,7 +21,7 @@ maxnodes=("512" "1024" "2048")
 
 total_runs=$(( ${#architecture[@]} * ${#learningrate[@]} * ${#batchsize[@]} * ${#maxnodes[@]} ))
 counter=0
-restart=0
+restart=78
 earlystop=135
 
 echo "Script: na_as_cons_grid_search_S42gpu.sh"
@@ -36,10 +36,12 @@ do
             do
                 ((counter++))
                 if [ "$counter" -ge "$restart" ] && [ "$counter" -le "$earlystop" ]; then
+                    date=$(date)
                     name="cons_${a}_${mn}"
                     echo "$date Started run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                     variation="-c cons_config_snell2_no_adapt_all_scaled.json --a $a --lr $lr --bs $bs --s 42 --mn $mn --n $name"
                     python train.py $variation 
+                    date=$(date)
                     echo "$date Finished run $counter/$total_runs with architecture: $a, learning rate: $lr, batch size: $bs, max nodes: $mn"
                 fi
             done
