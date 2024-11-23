@@ -186,7 +186,7 @@ class PudgeSixLayer(BaseModel):
 
 class PudgeFiveLayerSwish(BaseModel):
     def __init__(self, input_dim=4, output_dim=2, max_nodes=512):
-        super(PudgeFiveLayer, self).__init__()
+        super(PudgeFiveLayerSwish, self).__init__()
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.max_nodes = max_nodes
@@ -220,7 +220,7 @@ class PudgeFiveLayerSwish(BaseModel):
 
 class PudgeSixLayerSwish(BaseModel):
     def __init__(self, input_dim=4, output_dim=2, max_nodes=512):
-        super(PudgeSixLayer, self).__init__()
+        super(PudgeSixLayerSwish, self).__init__()
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.max_nodes = max_nodes
@@ -252,7 +252,7 @@ class PudgeSixLayerSwish(BaseModel):
     
 class PudgeFiveLayerMish(BaseModel):
     def __init__(self, input_dim=4, output_dim=2, max_nodes=512):
-        super(PudgeFiveLayer, self).__init__()
+        super(PudgeFiveLayerMish, self).__init__()
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.max_nodes = max_nodes
@@ -286,7 +286,7 @@ class PudgeFiveLayerMish(BaseModel):
 
 class PudgeSixLayerMish(BaseModel):
     def __init__(self, input_dim=4, output_dim=2, max_nodes=512):
-        super(PudgeSixLayer, self).__init__()
+        super(PudgeSixLayerMish, self).__init__()
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.max_nodes = max_nodes
