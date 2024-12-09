@@ -15,7 +15,7 @@ source NNFun/bin/activate
 
 # Experimental setup for seed 84
 
-architecture=("PudgeFiveLayerSwish" "PudgeSixLayerSwish","PudgeFiveLayerMish" "PudgeSixLayerMish")
+architecture=( "PudgeSixLayerSwish" "PudgeFiveLayerMish" )
 learningrate=("0.001" "0.01" "0.0001")
 batchsize=("64" "128" "512")
 maxnodes=("512" "1024" "2048")
