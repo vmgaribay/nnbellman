@@ -2,7 +2,8 @@
 import numpy as np
 from scipy.interpolate import interp1d
 from scipy.optimize import minimize_scalar
-
+import sys
+sys.path.append("~/.local/lib/python3.8/site-packages")
 from SALib.sample import saltelli,latin
 import pandas as pd
 import numpy as np

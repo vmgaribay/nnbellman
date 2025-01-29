@@ -5,15 +5,15 @@
 #SBATCH --output=python_current.out
 
 #            d-hh:mm:ss
-#SBATCH --time=30:00:00
+#SBATCH --time=40:00:00
 
 module load 2023 
 module load CUDA/12.1.1 
 module load cuDNN/8.9.2.26-CUDA-12.1.1 
 
 # Environment (Snellius specific)
-source /home/vgaribay/anaconda3/etc/profile.d/conda.sh
-conda activate dgl_ptm_gpu
+source NNFun/bin/activate
+
 echo "Script: PyRun.sh File: $1"
 date=$(date)
 echo "$date Started run"
