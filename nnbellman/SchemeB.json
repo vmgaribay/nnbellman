@@ -17,7 +17,7 @@
             "data_dir": "data/",
             "input_csv_file":"DatasetSchemeB/AgentData-Updated30Oct2024.csv", 
             "input_scale":{"alpha":{"dist":"norm","params":[1.08,0.074]},"k":{"dist":"unif","params":[0,40]},"sigma":{"dist":"unif","params":[0,2]},"theta":{"dist":"unif","params":[0,1]}},
-            "output_csv_file":"DatasetSchemeB/ResultsFinalEfficacy-29Jan2025clean.csv",
+            "output_csv_file":"DatasetSchemeB/ResultsFinalEfficacy-30Jan2025clean.csv",
             "categories":{"N":0.0,"L":0.2,"H":0.5},
             "output_variable":"both",
             "scale_output": "both",
