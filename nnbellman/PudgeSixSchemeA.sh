@@ -8,9 +8,11 @@
 
 
 module load 2023
-#python -m venv NNFun 
-source NNFun/bin/activate
-#pip install -r requirements.txt
+
+# Environment (Snellius specific)
+source /home/vgaribay/anaconda3/etc/profile.d/conda.sh
+#conda env create -f ../environment.yml --name dgl_ptm_gpu
+conda activate NNFun
 
 
 echo "Script: PudgeSixSchemeA.sh"
