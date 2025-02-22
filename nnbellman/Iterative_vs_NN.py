@@ -11,7 +11,7 @@ import model.model as nn_arch
 from scipy.interpolate import interp1d
 from scipy.optimize import minimize_scalar
 
-device = 'gpu'
+device = 'cuda'
 input_sizes = [1, 10, 100, 1000]
 seed_quantity = [10, 10, 10, 10]
 output_file = f'iterative_vs_NN_comparison_{device}.csv'
@@ -99,7 +99,7 @@ def generate_input(size, seed=None):
     samples_df=pd.DataFrame(samples)
     samples_df["Sigma"]=np.round(samples_df["Sigma"],1)
     samples_df["Theta"]=np.round(samples_df["Theta"],1)
-    samples_tensor = torch.tensor(samples_df.values, dtype=torch.float32)
+    samples_tensor = torch.tensor(samples_df.values, dtype=torch.float32).to(device)
     
     return samples_df, samples_tensor
 
@@ -443,7 +443,7 @@ def iterative_function(data):
     
 
 def nn_function(data): 
-    i_a_options = torch.tensor([0,0.2,0.5])
+    i_a_options = torch.tensor([0,0.2,0.5]).to(device)
     i_a_dict = {0:"N",0.2:"L",0.5:"H"}
     estimator,cons_scale, i_a_scale,input_scale = load_consumption_model(nn_path,device)  
 
