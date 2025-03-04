@@ -443,8 +443,7 @@ def iterative_function(data):
     
 
 def nn_function(data): 
-    i_a_options = torch.tensor([0,0.2,0.5]).to(device)
-    i_a_dict = {0:"N",0.2:"L",0.5:"H"}
+    i_a_dict = {"N":0.0,"L":0.2,"H":0.5}
     estimator,cons_scale, i_a_scale,input_scale = load_consumption_model(nn_path,device)  
 
     estimator.to(device)
@@ -466,8 +465,8 @@ def nn_function(data):
         pred=estimator(input)
     
     results=pd.DataFrame(columns=["i_a","consumption"])
-    results["i_a"]=i_a_options[torch.argmin(torch.abs(pred[:, 0].unsqueeze(1)*i_a_scale - i_a_options), dim=1).cpu()].cpu().numpy()
-    results["i_a"]=results["i_a"].apply(lambda x: i_a_dict[x])
+    idx_matches =torch.argmin(torch.abs(pred[:, 0].unsqueeze(1)*i_a_scale - torch.tensor(list(i_a_dict.values()),dtype=torch.float32).unsqueeze(0).to(device)), dim=1).cpu().numpy()
+    results["i_a"]=[list(i_a_dict.keys())[idx] for idx in idx_matches]
     #print(f"Setting {sum(results['consumption']<0)} negative consumption predictions to zero,{sum(results['consumption']<-0.1)} were less than -0.1 .")
     results["consumption"]=(pred[:,1]*cons_scale).clamp_(min=0).cpu().numpy()
     return results
