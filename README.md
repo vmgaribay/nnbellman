@@ -20,16 +20,16 @@ time comparison
 run script
 models
 
-- [Iterative_vs_NN.py](./nnbellman/Iterative_vs_NN.py) - Used to obtain the performance comparison values (set device to cpu if needed)
-- [GenerateBellmanSample.ipynb](./nnbellman/GenerateBellmanSample.ipynb) - Used to generate the training and testing data
-- [model.py](./nnbellman/model/model.py) - Experimental neural network achitectures 
-- [as_both_grid_search_S21gpu.sh](./nnbellman/as_both_grid_search_S21gpu.sh) - Example of script used to conduct architecture/hyperparameter grid search
-- [nn_performance_comparison.ipynb](./nn_performance_comparison.ipynb) - Used to extract best model performance from log files
+- [Iterative_vs_NN.py](/Iterative_vs_NN.py) - Used to obtain the performance comparison values (set device to cpu if needed)
+- [GenerateBellmanSample.ipynb](/GenerateBellmanSample.ipynb) - Used to generate the training and testing data
+- [model.py](/model/model.py) - Experimental neural network achitectures 
+- [as_both_grid_search_S21gpu.sh](BatchRuns/GridSearch/as_both_grid_search_S21gpu.sh) - Example of script used to conduct architecture/hyperparameter grid search
+- [nn_performance_comparison.ipynb](nn_performance_comparison.ipynb) - Used to extract best model performance from log files
 
 
 
-## Performance Comparison [^1]
-The comparison of performance for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation of 10 randomly seeded runs.
+## Performance Comparison
+The comparison of performance for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation[^1] of 10 randomly seeded runs.
 ### n=1
 | Metric | Iterative | MLP |
 |--------|-----------|-----|
