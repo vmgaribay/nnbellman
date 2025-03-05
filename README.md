@@ -65,7 +65,7 @@ The comparison of performance for the original iterative method and the neural n
 | GPU Time (s) | 38957.58 (955.93) | 0.53 (0.23) |
 | GPU Memory Usage (MB) | 1.72 (3.59) | 85.75 (3.59) |
 
-<sup>1</sup> Caveat: Small/No variation on memory usage metrics may be sign of inproper reset between runs; values should still be representative of peak useage.
+<sup>1</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
 
 ## Details
 For more information on the dataset generation and training process please refer to the main manuscript, doi:
