@@ -2,13 +2,12 @@
 
 ## Description
 This project addressed the need for a faster method of generating agent decisions for an agent-based model. The original policy iteration method, while sufficient for a small number of agents was computationally cost prohibitive at the population scales demanded by the ABM. Using scripts documented in this repository, an exhaustive search for suitable architecture and hyperparameters was conducted to train a feedforward multilayer perceptron as a replacement for the original iterative method.
-The structure for training the models was based on the {[PyTorch Template Project](https://github.com/victoresque/pytorch-template/)}
+The structure for training the models was based on the [PyTorch Template Project](https://github.com/victoresque/pytorch-template/).
 
 
 ## Installation
 ```bash
-git clone https://github.com/vgaribay/nnbellman.git
-cd nnbellman
+git clone https://github.com/vmgaribay/nnbellman.git
 conda env create -f environment.yml
 ```
 
@@ -29,7 +28,7 @@ models
 
 
 ## Performance Comparison
-The comparison of performance for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation[^1] of 10 randomly seeded runs.
+The comparison of performance for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation<sup>1</sup> of 10 randomly seeded runs.
 ### n=1
 | Metric | Iterative | MLP |
 |--------|-----------|-----|
@@ -66,7 +65,7 @@ The comparison of performance for the original iterative method and the neural n
 | GPU Time (s) | 38957.58 (955.93) | 0.53 (0.23) |
 | GPU Memory Usage (MB) | 1.72 (3.59) | 85.75 (3.59) |
 
-[^1] Caveat: Small/No variation on memory usage metrics may be sign of inproper reset between runs; values should still be representative of peak useage.
+<sup>1</sup> Caveat: Small/No variation on memory usage metrics may be sign of inproper reset between runs; values should still be representative of peak useage.
 
 ## Details
 For more information on the dataset generation and training process please refer to the main manuscript, doi:
