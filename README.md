@@ -62,7 +62,8 @@ The comparison of performance<sup>1</sup> for the original iterative method and 
 | GPU Memory Usage (MB) | 1.72 (3.59) | 85.75 (3.59) |
 
 
-<sup>1</sup> Hardware: Lenovo ThinkSystem SD650-N v2\
+<sup>1</sup> Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware), established Q4 2022\
+Hardware: Lenovo ThinkSystem SD650-N v2\
 &nbsp;&nbsp;&nbsp;&nbsp;OS: Red Hat Enterprise Linux 9.4 (Plow)\
 &nbsp;&nbsp;&nbsp;&nbsp;CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU family:           6\
@@ -80,8 +81,6 @@ The comparison of performance<sup>1</sup> for the original iterative method and 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Driver Version:       565.57.01\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUDA Version:         12.7\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Power Cap W:          400
-
-Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware), established Q4 2022 
 
 <sup>2</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
 
