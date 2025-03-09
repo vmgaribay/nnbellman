@@ -63,25 +63,25 @@ The comparison of performance<sup>1</sup> for the original iterative method and 
 
 
 <sup>1</sup> Hardware: Lenovo ThinkSystem SD650-N v2\
-    OS: Red Hat Enterprise Linux 9.4 (Plow)\
-    CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz\
-        CPU family:           6\
-        Model:                106\
-        Thread(s) per core:   1\
-        Core(s) per socket:   36\
-        Socket(s):            2\
-        Stepping:             6\
-        CPU(s) scaling MHz:   100%\
-        CPU max MHz:          2400.0000\
-        CPU min MHz:          800.0000\
-	    DRAM GiB per core:    7.111\
+&nbsp;&nbsp;&nbsp;&nbsp;OS: Red Hat Enterprise Linux 9.4 (Plow)\
+&nbsp;&nbsp;&nbsp;&nbsp;CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU family:           6\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model:                106\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread(s) per core:   1\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Core(s) per socket:   36\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Socket(s):            2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stepping:             6\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU(s) scaling MHz:   100%\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU max MHz:          2400.0000\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU min MHz:          800.0000\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DRAM GiB per core:    7.111
 
-    GPU: NVIDIA A100-SXM4-40GB\
-	    Driver Version:       565.57.01\
-	    CUDA Version:         12.7\
-	    Power Cap W:          400\
+&nbsp;&nbsp;&nbsp;&nbsp;GPU: NVIDIA A100-SXM4-40GB\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Driver Version:       565.57.01\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUDA Version:         12.7\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Power Cap W:          400
 
-Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware) established Q4 2022 
+Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware), established Q4 2022 
 
 <sup>2</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
 
