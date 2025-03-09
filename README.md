@@ -63,7 +63,8 @@ The comparison of performance<sup>1</sup> for the original iterative method and 
 
 
 <sup>1</sup> Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware), established Q4 2022\
-Hardware: Lenovo ThinkSystem SD650-N v2\
+Hardware Information: 
+Lenovo ThinkSystem SD650-N v2\
 &nbsp;&nbsp;&nbsp;&nbsp;OS: Red Hat Enterprise Linux 9.4 (Plow)\
 &nbsp;&nbsp;&nbsp;&nbsp;CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU family:           6\
@@ -86,8 +87,5 @@ Hardware: Lenovo ThinkSystem SD650-N v2\
 
 
 ## Details
-For more information on the dataset generation and training process please refer to the main manuscript, doi:
-
-
-\
+For more information on the dataset generation and training process please refer to the main manuscript, doi: pending
 ```
