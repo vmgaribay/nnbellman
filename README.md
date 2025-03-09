@@ -86,6 +86,6 @@ Lenovo ThinkSystem SD650-N v2\
 <sup>2</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
 
 
-## Details
+## Context
 For more information on the dataset generation and training process please refer to the main manuscript, doi: pending
 ```
