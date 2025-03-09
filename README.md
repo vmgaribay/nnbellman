@@ -2,7 +2,7 @@
 
 ## Description
 This project addressed the need for a faster method of generating agent decisions for an agent-based model. The original policy iteration method, while sufficient for a small number of agents was computationally cost prohibitive at the population scales demanded by the ABM. Using scripts documented in this repository, an exhaustive search for suitable architecture and hyperparameters was conducted to train a feedforward multilayer perceptron as a replacement for the original iterative method.
-The structure for training the models was based on the [PyTorch Template Project](https://github.com/victoresque/pytorch-template/).
+The code structure for model training was based on the [PyTorch Template Project](https://github.com/victoresque/pytorch-template/).
 
 
 ## Installation
@@ -12,12 +12,8 @@ conda env create -f environment.yml
 ```
 
 ## Usage Notes 
-If cuda is unavailable on your machine, the code may still be run on cpu after addressing any device errors.
-
 The code in this repository was admitedly not designed for general reuse but the main files of interest to others may be...
-time comparison
-run script
-models
+
 
 - [Iterative_vs_NN.py](/Iterative_vs_NN.py) - Used to obtain the performance comparison values (set device to cpu if needed)
 - [GenerateBellmanSample.ipynb](/GenerateBellmanSample.ipynb) - Used to generate the training and testing data
@@ -25,10 +21,10 @@ models
 - [as_both_grid_search_S21gpu.sh](BatchRuns/GridSearch/as_both_grid_search_S21gpu.sh) - Example of script used to conduct architecture/hyperparameter grid search
 - [nn_performance_comparison.ipynb](nn_performance_comparison.ipynb) - Used to extract best model performance from log files
 
-
+If cuda is unavailable on your machine, the code may still be run on cpu.
 
 ## Performance Comparison
-The comparison of performance for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation<sup>1</sup> of 10 randomly seeded runs.
+The comparison of performance<sup>1</sup> for the original iterative method and the neural network equation mapping with chosen architecture and hyperparameters is listed in the following tables for n agents. The values and numbers in parenthesis respectively represent the mean and standard deviation<sup>2</sup> of 10 randomly seeded runs.
 ### n=1
 | Metric | Iterative | MLP |
 |--------|-----------|-----|
@@ -65,7 +61,30 @@ The comparison of performance for the original iterative method and the neural n
 | GPU Time (s) | 38957.58 (955.93) | 0.53 (0.23) |
 | GPU Memory Usage (MB) | 1.72 (3.59) | 85.75 (3.59) |
 
-<sup>1</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
+
+<sup>1</sup> Hardware: Lenovo ThinkSystem SD650-N v2
+OS: Red Hat Enterprise Linux 9.4 (Plow)
+CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz
+    CPU family:           6
+    Model:                106
+    Thread(s) per core:   1
+    Core(s) per socket:   36
+    Socket(s):            2
+    Stepping:             6
+    CPU(s) scaling MHz:   100%
+    CPU max MHz:          2400.0000
+    CPU min MHz:          800.0000
+	DRAM GiB per core:    7.111 
+
+GPU: NVIDIA A100-SXM4-40GB 
+	Driver Version:       565.57.01
+	CUDA Version:         12.7
+	Power Cap W:          400
+
+Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware) established Q4 2022 
+
+<sup>2</sup> Caveat: Small/No variation on memory usage metrics may be sign of improper reset between runs; values should still be representative of peak useage.
+
 
 ## Details
 For more information on the dataset generation and training process please refer to the main manuscript, doi:
