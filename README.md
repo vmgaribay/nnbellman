@@ -62,24 +62,24 @@ The comparison of performance<sup>1</sup> for the original iterative method and 
 | GPU Memory Usage (MB) | 1.72 (3.59) | 85.75 (3.59) |
 
 
-<sup>1</sup> Hardware: Lenovo ThinkSystem SD650-N v2
-OS: Red Hat Enterprise Linux 9.4 (Plow)
-CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz
-    CPU family:           6
-    Model:                106
-    Thread(s) per core:   1
-    Core(s) per socket:   36
-    Socket(s):            2
-    Stepping:             6
-    CPU(s) scaling MHz:   100%
-    CPU max MHz:          2400.0000
-    CPU min MHz:          800.0000
-	DRAM GiB per core:    7.111 
+<sup>1</sup> Hardware: Lenovo ThinkSystem SD650-N v2\
+    OS: Red Hat Enterprise Linux 9.4 (Plow)\
+    CPU: Intel(R) Xeon(R) Platinum 8360Y CPU @ 2.40GHz\
+        CPU family:           6\
+        Model:                106\
+        Thread(s) per core:   1\
+        Core(s) per socket:   36\
+        Socket(s):            2\
+        Stepping:             6\
+        CPU(s) scaling MHz:   100%\
+        CPU max MHz:          2400.0000\
+        CPU min MHz:          800.0000\
+	    DRAM GiB per core:    7.111\
 
-GPU: NVIDIA A100-SXM4-40GB 
-	Driver Version:       565.57.01
-	CUDA Version:         12.7
-	Power Cap W:          400
+    GPU: NVIDIA A100-SXM4-40GB\
+	    Driver Version:       565.57.01\
+	    CUDA Version:         12.7\
+	    Power Cap W:          400\
 
 Run on [Snellius gcn partition](https://servicedesk.surf.nl/wiki/spaces/WIKI/pages/30660208/Snellius+hardware) established Q4 2022 
 
