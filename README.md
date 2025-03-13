@@ -1,8 +1,7 @@
 # NNBellman
 
 ## Description
-This project addressed the need for a faster method of generating agent decisions for an agent-based model. The original policy iteration method, while sufficient for a small number of agents was computationally cost prohibitive at the population scales demanded by the ABM. Using scripts documented in this repository, an exhaustive search for suitable architecture and hyperparameters was conducted to train a feedforward multilayer perceptron (MLP) as a replacement for the original iterative method. All data used to train the model and the models and metrics resulting from the hyperparameter grid search are available at [doi:10.5281/zenodo.14987728](https://doi.org/10.5281/zenodo.14987728)
-The code structure for model training was based on the [PyTorch Template Project](https://github.com/victoresque/pytorch-template/).
+This project addressed the need for a faster method of generating agent decisions for an agent-based model. The original policy iteration method, while sufficient for a small number of agents was computationally cost prohibitive at the population scales demanded by the ABM. Using scripts documented in this repository, an exhaustive search for suitable architecture and hyperparameters was conducted to train a feedforward multilayer perceptron (MLP) as a replacement for the original iterative method. All data used to train the model and the models and metrics resulting from the hyperparameter grid search are available at [doi:10.5281/zenodo.14987728](https://doi.org/10.5281/zenodo.14987728). The code structure for model training was based on the [PyTorch Template Project](https://github.com/victoresque/pytorch-template/).
 
 
 ## Installation
